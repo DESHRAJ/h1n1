@@ -18,5 +18,10 @@ urlpatterns = patterns('',
 	url(r'login', 'h1n1.views.login', name='login'),
 	url(r'register', 'h1n1.views.signup', name='signup'),
 	url(r'logout', 'django.contrib.auth.views.logout',{'next_page': '/login'}),
+	url(r'dashboard', 'h1n1.views.dashboard', name='dashboard'),
+	url(r'uploadreport', 'h1n1.views.upload', name='upload'),
+)
 
+urlpatterns += patterns('',
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 )

@@ -15,6 +15,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
 from datetime import datetime,timedelta
+# from googlemaps import GoogleMaps
 import random,string,ast
 
 def home(request):
@@ -55,14 +56,24 @@ def login(request):
 				# Correct password, and the user is marked "active"
 				auth.login(request,user)
 				# Redirect to a success page.
-				return HttpResponseRedirect("/profile")
+				return HttpResponseRedirect("/dashboard")
 			else:
 				# Show an error page
 				return render_to_response('login.html',{'incorrect':1},context_instance=RequestContext(request))				
 		return render_to_response('login.html',context_instance=RequestContext(request))
 	else:
-		return HttpResponseRedirect("/profile")
+		return HttpResponseRedirect("/dashboard")
 
 # 	logout(request)
 # 	# return HttpResponseRedirect("/")
 # 	return render_to_response("index.html",{'logout':1},context_instance=RequestContext(request))
+
+def dashboard(request):
+	return render_to_response('dashboard.html')
+
+def upload(request):
+	# gmaps = GoogleMaps(api_key)
+	# address = 'Constitution Ave NW & 10th St NW, Washington, DC'
+	# lat, lng = gmaps.address_to_latlng(address)
+	# print "###################",lat, lng
+	return render_to_response('upload.html')
