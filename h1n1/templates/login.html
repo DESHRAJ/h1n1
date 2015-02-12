@@ -60,6 +60,11 @@
           <input id="password" name="password" type="password" placeholder="password" class="form-control input-md" required>
           <p class="help-block text-right"><a href="javascript:" class="forgotPassword">Forgot password ?</a></p>
         </div>
+        {% if incorrect %}
+        <div class="alert alert-danger" role="alert">
+                  Username or Password Incorrect.
+        </div>
+        {% endif %}
         <div class="form-group">
           <input type="submit" class="btn btn-primary" value="Login">
         </div>

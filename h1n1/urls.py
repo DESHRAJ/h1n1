@@ -12,9 +12,11 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    url(r'^$', 'h1n1.views.home', name='home'),
-    url(r'login', 'h1n1.views.login', name='login'),
-    url(r'register', 'h1n1.views.signup', name='signup'),
-    url(r'^admin/', include(admin.site.urls)),
+	# Examples:
+	url(r'^$', 'h1n1.views.home', name='home'),
+	url(r'^admin/', include(admin.site.urls)),
+	url(r'login', 'h1n1.views.login', name='login'),
+	url(r'register', 'h1n1.views.signup', name='signup'),
+	url(r'logout', 'django.contrib.auth.views.logout',{'next_page': '/login'}),
+
 )

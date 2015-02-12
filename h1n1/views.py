@@ -58,7 +58,7 @@ def login(request):
 				return HttpResponseRedirect("/profile")
 			else:
 				# Show an error page
-				return HttpResponse("<h3>Incorrect password</h3>")
+				return render_to_response('login.html',{'incorrect':1},context_instance=RequestContext(request))				
 		return render_to_response('login.html',context_instance=RequestContext(request))
 	else:
 		return HttpResponseRedirect("/profile")
