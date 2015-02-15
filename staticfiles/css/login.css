@@ -1,0 +1,33 @@
+*{
+	border-radius: 0 !important;
+	font-weight: 400 !important;
+}
+.container-fluid,.container{
+	padding:0;
+}
+.row{
+	margin:0;
+}
+h2{
+	font-size:2em;
+}
+#loginForm{
+	max-width: 400px;
+	margin:auto;
+}
+.mainContainer{
+	padding:0 5px;
+}
+.formContainer{
+	border:2px solid #ddd;
+}
+#loginForm>div.form-group:nth-child(3) a{
+	color:inherit;
+	font-size: .8em;
+	margin-top:10px;
+	display: inline-block;
+}
+#loginForm>div.form-group:nth-child(3) input{
+	width:100%;
+	max-width: 200px;
+}

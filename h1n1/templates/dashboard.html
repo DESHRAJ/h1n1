@@ -1,10 +1,143 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Dashboard</title>
-</head>
-<body>
-<h2>Dashboard Page</h2>
-<p><a href="/uploadreport">Upload the Patient's Report</a></p>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="static/css/vendor/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/flat-ui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/dashboard.css">
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script>
+    function initialize(){
+      var mapCanvas = document.getElementById('map-canvas');
+      var mapOptions = {
+        center: new google.maps.LatLng(28.614081, 77.359504),
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions)
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+  </head>
+  <body>
+    <header class="container-fluid">
+      <nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">H1N1 Project</a>
+        </div>
+      </nav>
+    </header>
+    <aside>
+      <div class="showMenu visible-xs"><a href="javascript:" class="btn btn-primary"><span class="fui-list"></span></a></div>
+      <ul>
+        <li class="active"><a href="javascript:" class="menuLink" data-show="one">Upload lab data</a></li>
+        <li><a href="javascript:" class="menuLink" data-show="two">Show data</a></li>
+        <li><a href="javascript:" class="menuLink" data-show="three">Show on map</a></li>
+        <li><a href="javascript:" class="menuLink" data-show="four">Edit lab details</a></li>
+        <li><a href="/">Logout</a></li>
+      </ul>
+    </aside>
+    <div class="container-fluid mainContainer">
+      <div class="row one">
+        <div class="col-sm-12">
+          <h2>Upload Patiend Data</h2>
+          <form action="" onsubmit="return false;">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="name">Patient Name</label>
+                  <input type="text" name="name" id="name" class="form-control" placeholder="Patiend name" required>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="address">Patient Location</label>
+                  <input type="text" name="address" id="address" class="form-control" required placeholder="Patiend location">
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <input type="submit" class="btn btn-primary btn-embossed" value="Save">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row two">
+        <div class="col-sm-12">
+          <h2>Lab Data</h2>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Patiend Id</th>
+                  <th>Location</th>
+                  <th>Added On</th>
+                  <th>Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Ab5542</td>
+                  <td>New Delhi</td>
+                  <td>7-Feburary-2015</td>
+                  <td><a href="javascript:" class="btn btn-inverse" title="Edit"><span class="fui-new"></span></a> <a href="javascript:" class="btn btn-inverse" title="Delete"><span class="fui-trash"></span></a></td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Ab5542</td>
+                  <td>New Delhi</td>
+                  <td>7-Feburary-2015</td>
+                  <td><a href="javascript:" class="btn btn-inverse" title="Edit"><span class="fui-new"></span></a> <a href="javascript:" class="btn btn-inverse" title="Delete"><span class="fui-trash"></span></a></td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Ab5542</td>
+                  <td>New Delhi</td>
+                  <td>7-Feburary-2015</td>
+                  <td><a href="javascript:" class="btn btn-inverse" title="Edit"><span class="fui-new"></span></a> <a href="javascript:" class="btn btn-inverse" title="Delete"><span class="fui-trash"></span></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row three">
+        <div class="col-sm-12">
+          <h2>Disease distribution on map</h2>
+          <div id="map-canvas"></div>
+        </div>
+      </div>
+      <div class="row four">
+        <div class="col-sm-12">
+          <h2>Edit lab details</h2>
+        </div>
+      </div>
+    </div>
+    <script src="static/js/vendor/jquery.min.js"></script>
+    <script src="static/js/vendor/video.js"></script>
+    <script src="static/js/flat-ui.min.js"></script>
+    <script>
+      function toggleMenu(){
+        parent = $('aside');
+        if(parent.hasClass('show')) parent.removeClass('show');
+        else parent.addClass('show');
+      }
+      $(document).on('click','.showMenu',toggleMenu);
+      $(document).on('click','aside ul li>a.menuLink',function(){
+        hide = $(this).closest('ul').find('li.active').removeClass('active').find('a').attr('data-show');
+        show = $(this).parent().addClass('active').find('a').attr('data-show');
+        toggleMenu();
+        $('.mainContainer .'+hide).fadeOut('normal',function(){
+          $('.mainContainer .'+show).fadeIn();
+          initialize();
+        });
+      });
+    </script>
+  </body>
 </html>

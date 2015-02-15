@@ -1,0 +1,99 @@
+*{
+	border-radius: 0 !important;
+	font-weight: 400 !important;
+}
+header .navbar{
+	z-index: 2;
+}
+.container-fluid,.container{
+	padding:0;
+}
+.row{
+	margin:0;
+}
+.mainContainer{
+	margin-left: 200px;
+}
+aside{
+	padding-top:53px;
+	z-index: 1;
+	background: #1abc9c;
+	width:200px;
+	height:100%;
+	position: absolute;
+	left:0;
+	transition:left .4s ease;
+	-webkit-transition:left .4s ease;
+	-moz-transition:left .4s ease;
+	top:0;
+}
+aside ul{
+	list-style: none;
+	padding:0;
+	margin:0;
+}
+aside ul li{
+	display: block;
+	
+	border-bottom:3px solid #00ab8b;
+	transition:background .3s ease;
+	-webkit-transition:background .3s ease;
+	-moz-transition:background .3s ease;
+}
+aside ul li a,aside ul li a:hover,aside ul li a:focus{
+	display: block;
+	padding:15px;
+	color:white;
+	font-size:.9em;
+}
+aside ul li:hover{
+	background:#00ab8b;
+}
+aside .showMenu{
+	position: relative;
+}
+aside .showMenu>a,aside .showMenu>a:focus,aside .showMenu>a:hover{
+	position: absolute;
+	background-color: #1abc9c;
+	left:200px;
+	top:0;
+	padding:5px 10px;
+	border:2px solid #00ab8b;
+}
+h2{
+	font-size:2em;
+	margin-top:5px;
+}
+form .row>div{
+	padding:0 5px;
+}
+.mainContainer .one .btn{
+	width:100%;
+	max-width: 150px;
+}
+.mainContainer .two,.mainContainer .three,.mainContainer .four{
+	display: none;
+}
+.table>tbody>tr>td{
+	vertical-align: middle;
+}
+#map-canvas {
+	width: 100%;
+	height: 500px;
+	transition:all .3s ease;
+}
+@media(max-width: 768px){
+	aside{
+		left:-200px;
+	}
+	aside.show{
+		left:0px;
+	}
+	.mainContainer{
+		margin-left: 0;
+	}
+	h2{
+		font-size: 1.6em;
+		margin-top:15px;
+	}
+}
