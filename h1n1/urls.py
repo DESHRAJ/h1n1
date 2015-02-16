@@ -20,6 +20,7 @@ urlpatterns = patterns('',
 	url(r'logout', 'django.contrib.auth.views.logout',{'next_page': '/login'}),
 	url(r'dashboard', 'h1n1.views.dashboard', name='dashboard'),
 	url(r'uploadreport', 'h1n1.views.upload', name='upload'),
+	url(r'savelocation', 'h1n1.views.savelocation', name='savelocation'),
 )
 
 urlpatterns += patterns('',

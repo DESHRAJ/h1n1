@@ -69,11 +69,28 @@ def login(request):
 # 	return render_to_response("index.html",{'logout':1},context_instance=RequestContext(request))
 
 def dashboard(request):
-	return render_to_response('dashboard.html')
+	c = {}
+	c.update(csrf(request))
+	return render_to_response('dashboard.html',context_instance=RequestContext(request))
 
 def upload(request):
 	# gmaps = GoogleMaps(api_key)
 	# address = 'Constitution Ave NW & 10th St NW, Washington, DC'
 	# lat, lng = gmaps.address_to_latlng(address)
 	# print "###################",lat, lng
-	return render_to_response('upload.html')
+	c = {}
+	c.update(csrf(request))
+	return render_to_response('upload.html', context_instance=RequestContext(request))
+
+def savelocation(request):
+	c = {}
+	c.update(csrf(request))
+	if request.POST:
+		print 'post request'
+		name=request.POST['name']
+		address=request.POST['address']
+		latitude=request.POST['latitude']
+		longitude=request.POST['longitude']
+		print name,address,latitude,longitude
+		return HttpResponse('hi')
+	return render_to_response('upload.html', context_instance=RequestContext(request))
