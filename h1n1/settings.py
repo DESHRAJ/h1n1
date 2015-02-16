@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'h1n1',
+    #'south',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,12 +57,27 @@ WSGI_APPLICATION = 'h1n1.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-DATABASES = {
+if 'OPENSHIFT_POSTGRESQL_DB_URL' in os.environ:
+    DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': os.environ['OPENSHIFT_APP_NAME'],
+        'USER': '',
+        'PASSWORD': "",
+        'HOST': os.environ['OPENSHIFT_POSTGRESQL_DB_HOST'],
+        'PORT': os.environ['OPENSHIFT_POSTGRESQL_DB_PORT'],
     }
 }
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'h1n1db',
+        'USER':'tj',
+        'PASSWORD':'gameover',
+    }
+}
+POSTGIS_VERSION = (2, 1, 0)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

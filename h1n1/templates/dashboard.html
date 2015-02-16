@@ -181,27 +181,16 @@ google.maps.event.addDomListener(window, 'load', initialize);
                 </tr>
               </thead>
               <tbody>
+                {% for each in all_patients %}
                 <tr>
                   <td>1</td>
                   <td>Ab5542</td>
-                  <td>New Delhi</td>
-                  <td>7-Feburary-2015</td>
+                  <td>{{each.address}}</td>
+                  <td>{{each.visitDate|date:"d M Y"}}</td>
                   <td><a href="javascript:" class="btn btn-inverse" title="Edit"><span class="fui-new"></span></a> <a href="javascript:" class="btn btn-inverse" title="Delete"><span class="fui-trash"></span></a></td>
                 </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Ab5542</td>
-                  <td>New Delhi</td>
-                  <td>7-Feburary-2015</td>
-                  <td><a href="javascript:" class="btn btn-inverse" title="Edit"><span class="fui-new"></span></a> <a href="javascript:" class="btn btn-inverse" title="Delete"><span class="fui-trash"></span></a></td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>Ab5542</td>
-                  <td>New Delhi</td>
-                  <td>7-Feburary-2015</td>
-                  <td><a href="javascript:" class="btn btn-inverse" title="Edit"><span class="fui-new"></span></a> <a href="javascript:" class="btn btn-inverse" title="Delete"><span class="fui-trash"></span></a></td>
-                </tr>
+                {% endfor %}
+                
               </tbody>
             </table>
           </div>

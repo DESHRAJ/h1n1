@@ -5,6 +5,7 @@ from django.shortcuts import render_to_response, render
 from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.http import *
 from django.conf import settings
+from django.contrib.gis import geos
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
@@ -14,6 +15,7 @@ from django.template.loader import render_to_string, get_template
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
+from h1n1.models import *
 from datetime import datetime,timedelta
 # from googlemaps import GoogleMaps
 import random,string,ast
@@ -71,7 +73,8 @@ def login(request):
 def dashboard(request):
 	c = {}
 	c.update(csrf(request))
-	return render_to_response('dashboard.html',context_instance=RequestContext(request))
+	all_patients=PatientData.objects.filter(labId='1')
+	return render_to_response('dashboard.html',{'all_patients':all_patients},context_instance=RequestContext(request))
 
 def upload(request):
 	# gmaps = GoogleMaps(api_key)
@@ -92,5 +95,11 @@ def savelocation(request):
 		latitude=request.POST['latitude']
 		longitude=request.POST['longitude']
 		print name,address,latitude,longitude
-		return HttpResponse('hi')
+		point = "POINT(%s %s)" % (longitude, latitude)
+		location = geos.fromstr(point)
+		#patientId=''.join([random.choice(string.letters + string.digits) for i in range(10)])
+		newpatient=PatientData(address=address,name=name,location=location,labId='1')
+		newpatient.save()
+		print 'patient details saved'
+		return HttpResponseRedirect('/dashboard')
 	return render_to_response('upload.html', context_instance=RequestContext(request))
