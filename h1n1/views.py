@@ -1,23 +1,18 @@
-from django.shortcuts import render
 from django.core.context_processors import csrf
-from django.template import RequestContext
-from django.shortcuts import render_to_response, render
-from django.http import Http404, HttpResponse, HttpResponseRedirect, HttpResponseNotFound
+from django.template import Context,RequestContext
+from django.shortcuts import render_to_response, render,redirect
 from django.http import *
 from django.conf import settings
 from django.contrib.gis import geos
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
-from django.shortcuts import redirect
 from django.core.mail import send_mail
 from django.template.loader import render_to_string, get_template
 from django.core.mail import EmailMultiAlternatives
-from django.template.loader import get_template
-from django.template import Context
-from h1n1.models import *
 from datetime import datetime,timedelta
-# from googlemaps import GoogleMaps
+from h1n1.models import *
+
 import random,string,ast
 
 def home(request):
@@ -55,12 +50,9 @@ def login(request):
 			password = request.POST['password']
 			user = auth.authenticate(username=username, password=password)
 			if user is not None and user.is_active:
-				# Correct password, and the user is marked "active"
 				auth.login(request,user)
-				# Redirect to a success page.
 				return HttpResponseRedirect("/dashboard")
 			else:
-				# Show an error page
 				return render_to_response('login.html',{'incorrect':1},context_instance=RequestContext(request))				
 		return render_to_response('login.html',context_instance=RequestContext(request))
 	else:
@@ -71,21 +63,20 @@ def login(request):
 # 	return render_to_response("index.html",{'logout':1},context_instance=RequestContext(request))
 
 def dashboard(request):
+	''' View for the PathLabs to see the data uploaded by them and also an option to update the data they have provided to the government'''
 	c = {}
 	c.update(csrf(request))
 	all_patients=PatientData.objects.filter(labId='1')
 	return render_to_response('dashboard.html',{'all_patients':all_patients},context_instance=RequestContext(request))
 
 def upload(request):
-	# gmaps = GoogleMaps(api_key)
-	# address = 'Constitution Ave NW & 10th St NW, Washington, DC'
-	# lat, lng = gmaps.address_to_latlng(address)
-	# print "###################",lat, lng
+	'''For uploading the patient data '''
 	c = {}
 	c.update(csrf(request))
 	return render_to_response('upload.html', context_instance=RequestContext(request))
 
 def savelocation(request):
+	'''View for saving the location of the Patient'''
 	c = {}
 	c.update(csrf(request))
 	if request.POST:
@@ -97,7 +88,6 @@ def savelocation(request):
 		print name,address,latitude,longitude
 		point = "POINT(%s %s)" % (longitude, latitude)
 		location = geos.fromstr(point)
-		#patientId=''.join([random.choice(string.letters + string.digits) for i in range(10)])
 		newpatient=PatientData(address=address,name=name,location=location,labId='1')
 		newpatient.save()
 		print 'patient details saved'
