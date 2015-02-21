@@ -93,3 +93,7 @@ def savelocation(request):
 		print 'patient details saved'
 		return HttpResponseRedirect('/dashboard')
 	return render_to_response('upload.html', context_instance=RequestContext(request))
+
+def showdata(request):
+	patients=PatientData.objects.all()
+	return render_to_response('distribution.html',{'patients':patients},context_instance=RequestContext(request))

@@ -21,6 +21,7 @@ urlpatterns = patterns('',
 	url(r'dashboard', 'h1n1.views.dashboard', name='dashboard'),
 	url(r'uploadreport', 'h1n1.views.upload', name='upload'),
 	url(r'savelocation', 'h1n1.views.savelocation', name='savelocation'),
+	url(r'showdata', 'h1n1.views.showdata', name='showdata'),
 )
 
 urlpatterns += patterns('',
