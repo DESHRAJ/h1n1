@@ -69,14 +69,24 @@ if 'OPENSHIFT_POSTGRESQL_DB_URL' in os.environ:
     }
 }
 else:
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'h1n1db',
-        'USER':'tj',
-        'PASSWORD':'gameover',
+    if os.path.abspath('').find('deshraj') != -1:
+        DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': 'h1n1db',
+            'USER':'deshraj',
+            'PASSWORD':'helloworld',
+        }
     }
-}
+    elif os.path.abspath('').find('tj') != -1:
+        DATABASES = {
+        'default': {
+            'ENGINE': 'django.contrib.gis.db.backends.postgis',
+            'NAME': 'h1n1db',
+            'USER':'tj',
+            'PASSWORD':'gameover',
+        }
+	}
 POSTGIS_VERSION = (2, 1, 0)
 
 # Internationalization
