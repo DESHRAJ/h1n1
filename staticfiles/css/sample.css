@@ -50,10 +50,16 @@ a.waves-effect.btn:hover{
 footer{
     /*padding-top: 10px;*/
     /*padding-bottom: 0px;*/
-    position:fixed;
+    /*position:fixed;*/
     bottom:0;
     width:100%;
 }
 footer div.container{
     color: #ffc400;
+}
+
+img#r{
+	vertical-align: middle;
+	/*margin-right: 10px;*/
+	height: 250px;
 }
