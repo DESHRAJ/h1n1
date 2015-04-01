@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Public health Surveillance System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/css/materialize.min.css">
+  <link rel="stylesheet" href="/static/css/sample.css">
+  <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" rel="stylesheet" type="text/css">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+        <style>
+      
+      .controls {
+        margin-top: 16px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #pac-input {
+        background-color: #fff;
+        padding: 0 11px 0 13px;
+        width: 400px;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        text-overflow: ellipsis;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+        margin-left: -1px;
+        padding-left: 14px;  /* Regular padding-left + 1. */
+        width: 401px;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      }
+
+    </style>
+    <script>
+function initialize() {
+  var mapOptions = {
+    center: new google.maps.LatLng(28.60955, 77.35750),
+    zoom: 13
+  };
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+    mapOptions);
+
+  var input = /** @type {HTMLInputElement} */(
+      document.getElementById('pac-input'));
+  var  image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png';
+  var types = document.getElementById('type-selector');
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+
+  var infowindow = new google.maps.InfoWindow();
+  var marker = new google.maps.Marker({
+    map: map,
+    anchorPoint: new google.maps.Point(0, -29)
+  });
+
+  google.maps.event.addListener(autocomplete, 'place_changed', function() {
+    infowindow.close();
+    marker.setVisible(false);
+    var place = autocomplete.getPlace();
+    if (!place.geometry) {
+      return;
+    }
+
+    // If the place has a geometry, then present it on a map.
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);  // Why 17? Because it looks good.
+    }
+   marker.setIcon(image);
+    marker.setPosition(place.geometry.location);
+    var latitude = place.geometry.location.lat();
+    var longitude = place.geometry.location.lng();
+    document.getElementById('latitude').value=latitude;
+    document.getElementById('longitude').value=longitude;
+    
+    marker.setVisible(true);
+
+    var address = '';
+    if (place.address_components) {
+      address = [
+        (place.address_components[0] && place.address_components[0].short_name || ''),
+        (place.address_components[1] && place.address_components[1].short_name || ''),
+        (place.address_components[2] && place.address_components[2].short_name || '')
+      ].join(' ');
+    }
+
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+    infowindow.open(map, marker);
+  });
+
+
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+</head>
+<body>
+    <ul id="dropdown1" class="dropdown-content">
+      <li><a href="#!">one</a></li>
+      <li><a href="#!">two</a></li>
+      <li class="divider"></li>
+      <li><a href="#!">three</a></li>
+    </ul>
+    <div class="navbar-fixed">
+    <nav >
+      <div class="nav-wrapper">
+        <a href="#!" class="center brand-logo hide-on-med-and-down">Public Health Surveillance System</a>
+        <a href="#!" class="center brand-logo hide-on-large-only "><i class="right mdi-file-cloud-queue"></i> PHSS</a>
+        <a id="menuicon" data-activates="mobile-demo" class="button-collapse top-nav full"><i class="mdi-navigation-menu"></i></a>
+        <ul class="menu2 right hide-on-med-and-down">
+        {% if user.is_authenticated %}
+          <li><a><img src="/static/img/deshraj.jpg" id="deshraj" alt="deshraj" class="circle resposive-img">Hi, Deshraj</a></li>
+        {% else %}
+          <li><a class ="modal-trigger"style="font-size:17px;" href="#login">Login</a></li>
+          <li><a class ="modal-trigger"style="font-size:17px;" href="#register">Register</a></li>
+        {% endif %}
+          <li class="divider"></li>
+        </ul>
+      </div>
+        <ul class="side-nav show-on-med-and-down" id="mobile-demo">
+          <li><a><img src="/static/img/deshraj.jpg" id="deshraj" alt="deshraj" class="circle resposive-img">   Hi, Deshraj</a></li>
+          <div class="divider"></div>
+          <li><a>Classification</a></li>
+          <li><a>Image Stitch</a></li>
+          <li><a>Train Category</a></li>
+          <li><a>Decaf Server</a></li>
+          <div class="divider"></div>
+          <li><a>Logout</a></li>
+          <div class="divider"></div>
+        </ul>
+  </nav>
+  </div>
+  <main>
+      <div class="row center" id="row1">
+        <div class="col s12 m12 l12">
+              <a class="active waves-effect waves-light btn">Home</a>
+              <a class="waves-effect waves-light btn">MY Uploaded Data</a>
+              <a class="waves-effect waves-light btn">Upload New Data</a>
+              <a class="waves-effect waves-light btn">Show stats on map</a>
+              <a class="waves-effect waves-light btn">Alert the Schools</a>
+              <a class="waves-effect waves-light btn">About Us</a>
+        </div>
+      </div>
+      <div id="login" class="modal modal-fixed-footer">
+        <div class="modal-content">
+          <h4>Get Started</h4>
+          <div class="divider"></div>
+          <div class="container">
+          <form class="col s12">
+              <div class="input-field col s12">
+                <input id="email" type="email" class="validate">
+                <label for="email">Email</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="password" type="password" class="validate">
+                <label for="password">Password</label>
+              </div>
+              <a class="waves-effect waves-light btn">Login</a>              
+          </form>
+            </div>
+        </div>
+      </div>
+      <div id="register" class="modal modal-fixed-footer">
+        <div class="modal-content">
+          <h4>Get Started</h4>
+          <div class="divider"></div>
+          <div class="container">
+          <form class="col s12">
+              <div class="input-field col s12">
+                <input id="email" type="email" class="validate">
+                <label for="email">Email</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="password" type="password" class="validate">
+                <label for="password">Password</label>
+              </div>
+              <a class="waves-effect waves-light btn">Register</a>              
+          </form>
+            </div>
+        </div>
+      </div>
+    <div class="container-fluid mainContainer">
+      <div class="row one">
+        <div class="col-sm-12">
+          <h2>Upload Patient Data</h2>
+          <form action="/savelocation"  method="POST">
+             {% csrf_token %}
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="name">Patient Name</label>
+                  <input type="text" name="name" id="name" class="form-control" placeholder="Patient name" required>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="address">Patient Location</label>
+                  <input type="text" name="address" id="pac-input" class="form-control" required placeholder="Patient location">
+                </div>
+              </div>
+              <input type="hidden" id="latitude" name ="latitude"/> 
+    <input type="hidden" id="longitude" name="longitude"/>
+              <div id="map-canvas"></div>
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <input type="submit" class="btn btn-primary btn-embossed" value="Save">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row two">
+        <div class="col-sm-12">
+          <h2>Lab Data</h2>
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Patient Id</th>
+                  <th>Location</th>
+                  <th>Added On</th>
+                  <th>Options</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for each in all_patients %}
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>Ab5542</td>
+                  <td>{{each.address}}</td>
+                  <td>{{each.visitDate|date:"d M Y"}}</td>
+                  <td><a href="javascript:" class="btn btn-inverse" title="Edit"><span class="fui-new"></span></a> <a href="javascript:" class="btn btn-inverse" title="Delete"><span class="fui-trash"></span></a></td>
+                </tr>
+                {% endfor %}
+                
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="row three">
+        <div class="col-sm-12">
+          <h2>Disease distribution on map</h2>
+          <div id="map-canvas"></div>
+        </div>
+      </div>
+      <div class="row four">
+        <div class="col-sm-12">
+          <h2>Edit lab details</h2>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/js/materialize.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+      $('.modal-trigger').leanModal({
+      dismissible: true,
+      opacity: .5,
+      in_duration: 300,
+      out_duration: 200,
+    }
+  ); 
+  });
+  </script>
+  <footer class="page-footer grey darken-3">
+    <div class="footer-copyright">
+      <div class="container center" style="color: #ffc400 !important;">
+      © 2015 Copyright JSSATE Noida
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

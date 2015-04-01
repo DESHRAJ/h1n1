@@ -67,7 +67,7 @@ def dashboard(request):
 	c = {}
 	c.update(csrf(request))
 	all_patients=PatientData.objects.filter(labId='1')
-	return render_to_response('dashboard.html',{'all_patients':all_patients},context_instance=RequestContext(request))
+	return render_to_response('mdashboard.html',{'all_patients':all_patients},context_instance=RequestContext(request))
 
 def upload(request):
 	'''For uploading the patient data '''
