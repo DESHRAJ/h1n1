@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>public health Survillance System</title>
+  <title>Public health Surveillance System</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/css/materialize.min.css">
   <link rel="stylesheet" href="/static/css/sample.css">
@@ -18,37 +18,22 @@
     <div class="navbar-fixed">
     <nav >
       <div class="nav-wrapper">
-        <a href="#!" class="center brand-logo"><i class="right mdi-file-cloud-queue"></i> CloudCV</a>
+        <a href="#!" class="center brand-logo hide-on-med-and-down"><i class="right mdi-file-cloud-queue"></i> Public Health Surveillance System</a>
+        <a href="#!" class="center brand-logo hide-on-large-only "><i class="right mdi-file-cloud-queue"></i> PHSS</a>
         <a id="menuicon" data-activates="mobile-demo" class="button-collapse top-nav full"><i class="mdi-navigation-menu"></i></a>
-        <ul class="menu2 left hide-on-med-and-down">
-          <li>
-            <form>
-              <div class="input-field">
-                <input id="search" type="text" required>
-                <label for="search"><i class="mdi-action-search"></i></label>
-              </div>
-            </form>
-          </li>
-        </ul>
         <ul class="menu2 right hide-on-med-and-down">
+        {% if user.is_authenticated %}
           <li><a><img src="/static/img/deshraj.jpg" id="deshraj" alt="deshraj" class="circle resposive-img">Hi, Deshraj</a></li>
-          <li><a><i class="mdi-action-home"></i></a></li>
-          <li><a><i class="mdi-action-event"></i></a></li>
-          <li><a><i class="mdi-action-delete"></i></a></li>
+        {% else %}
+          <li><a class ="modal-trigger"style="font-size:17px;" href="#login">Login</a></li>
+          <li><a class ="modal-trigger"style="font-size:17px;" href="#register">Register</a></li>
+        {% endif %}
           <li class="divider"></li>
         </ul>
       </div>
         <ul class="side-nav show-on-med-and-down" id="mobile-demo">
           <li><a><img src="/static/img/deshraj.jpg" id="deshraj" alt="deshraj" class="circle resposive-img">   Hi, Deshraj</a></li>
           <div class="divider"></div>
-          <li>
-            <form>
-              <div class="input-field">
-                <input id="search" type="text" placeholder="Search"required>
-                <label for="search"><i class="mdi-action-search"></i></label>
-              </div>
-            </form>
-          </li>
           <li><a>Classification</a></li>
           <li><a>Image Stitch</a></li>
           <li><a>Train Category</a></li>
@@ -59,61 +44,93 @@
         </ul>
   </nav>
   </div>
-        <ul class="side-nav fixed hide-on-med-and-down">
-          <li class="bold active"><a class="waves-effect waves-teal"><i class="small mdi-action-home"></i> Dashboard</a></li>
-          <div class="divider"></div>
-          <li class="bold"><a class="waves-effect waves-teal"><i class="small mdi-action-accessibility"></i> Active Signals</a></li>
-          <div class="divider"></div>
-          <li class="bold"><a class="waves-effect waves-teal"><i class="small mdi-editor-insert-chart"></i> Visual Charts</a></li>
-          <div class="divider"></div>
-          <li class="bold"><a class="waves-effect waves-teal"><i class="small mdi-action-bug-report"></i> Classifiers</a></li>
-          <div class="divider"></div>
-          <li class="bold"><a class="waves-effect waves-teal"><i class="small mdi-image-camera-front"></i> Image System</a></li>
-          <div class="divider"></div>
-      </ul>
   <main>
-<!--     <div class="row" id="row1">
-      <div class="col s12 m12 l12">
-             <a class="active waves-effect waves-light btn">OVERVIEW</a>
-            <a class="waves-effect waves-light btn">MY REPORTS</a>
-            <a class="waves-effect waves-light btn">FORUM</a>
-            <a class="waves-effect waves-light btn">SEARCH</a>
-            <a class="waves-effect waves-light btn">MY PROJECTS</a>
-            <a class="waves-effect waves-light btn">LEADERBOARD</a>                       
+      <div class="row center" id="row1">
+        <div class="col s12 m12 l12">
+              <a class="active waves-effect waves-light btn">Home</a>
+              <a class="waves-effect waves-light btn">MY Uploaded Data</a>
+              <a class="waves-effect waves-light btn">Upload New Data</a>
+              <a class="waves-effect waves-light btn">Show stats on map</a>
+              <a class="waves-effect waves-light btn">Alert the Schools</a>
+              <a class="waves-effect waves-light btn">About Us</a>
+        </div>
       </div>
-    </div> -->
-    <div class="divider" id="rowdivider"></div>
-    <div class="row">
-      <div class="col s12 m6 l4">
-      <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup.</p>
+      <div id="login" class="modal modal-fixed-footer">
+        <div class="modal-content">
+          <h4>Get Started</h4>
+          <div class="divider"></div>
+          <div class="container">
+          <form class="col s12">
+              <div class="input-field col s12">
+                <input id="email" type="email" class="validate">
+                <label for="email">Email</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="password" type="password" class="validate">
+                <label for="password">Password</label>
+              </div>
+              <a class="waves-effect waves-light btn">Login</a>              
+          </form>
             </div>
-          </div>
+        </div>
       </div>
-      <div class="col s12 m6 l4">
-      <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup.</p>
+      <div id="register" class="modal modal-fixed-footer">
+        <div class="modal-content">
+          <h4>Get Started</h4>
+          <div class="divider"></div>
+          <div class="container">
+          <form class="col s12">
+              <div class="input-field col s12">
+                <input id="email" type="email" class="validate">
+                <label for="email">Email</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="password" type="password" class="validate">
+                <label for="password">Password</label>
+              </div>
+              <a class="waves-effect waves-light btn">Register</a>              
+          </form>
             </div>
-          </div>
+        </div>
       </div>
-      <div class="col s12 m6 l4">
-      <div class="card blue-grey darken-1">
-            <div class="card-content white-text">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup.</p>
-            </div>
-          </div>
-      </div>
-    </div>
   </main>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/js/materialize.min.js"></script>
+  <script type="text/javascript">
+  $(document).ready(function(){
+      $('.modal-trigger').leanModal({
+      dismissible: true,
+      opacity: .5,
+      in_duration: 300,
+      out_duration: 200,
+    }
+  ); 
+  });
+  </script>
+  <footer class="page-footer grey darken-3">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text" style="color: #ffc400 !important;">Footer Content</h5>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+              </div>
+              <div class="col l4 offset-l2 s12" >
+                <h5 class="white-text" style="color: #ffc400 !important;">Links</h5>
+                <ul style="color: #ffc400 !important;">
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container" style="color: #ffc400 !important;">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
 </body>
 </html>
