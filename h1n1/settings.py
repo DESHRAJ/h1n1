@@ -69,16 +69,17 @@ if 'OPENSHIFT_POSTGRESQL_DB_URL' in os.environ:
     }
 }
 else:
-    if os.path.abspath('').find('deshraj') != -1:
+    if os.path.abspath('Documents').find('dypy') != -1:
         DATABASES = {
         'default': {
+            'HOST':'localhost',
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
             'NAME': 'h1n1db',
-            'USER':'deshraj',
+            'USER':'dypy',
             'PASSWORD':'helloworld',
         }
     }
-    elif os.path.abspath('').find('tj') != -1:
+    elif os.path.abspath('Documents').find('tj') != -1:
         DATABASES = {
         'default': {
             'ENGINE': 'django.contrib.gis.db.backends.postgis',
