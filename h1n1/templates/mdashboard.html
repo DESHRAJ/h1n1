@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/static/css/sample.css">
   <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" rel="stylesheet" type="text/css">
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+
         <style>
       
       .controls {
@@ -199,32 +200,26 @@ google.maps.event.addDomListener(window, 'load', initialize);
             </div>
         </div>
       </div>
-    <div class="container-fluid mainContainer">
+    <div class="container">
       <div class="row one">
-        <div class="col-sm-12">
+        <div class="col s12">
           <h2>Upload Patient Data</h2>
-          <form action="/savelocation"  method="POST">
+          <form action="/savelocation"  method="POST" name="submitForm">
              {% csrf_token %}
             <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="name">Patient Name</label>
-                  <input type="text" name="name" id="name" class="form-control" placeholder="Patient name" required>
-                </div>
+              <div class="input-field col s12">
+                <input id="name" type="text" class="validate" name="name">
+                <label for="name">Patient Name</label>
               </div>
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="address">Patient Location</label>
-                  <input type="text" name="address" id="pac-input" class="form-control" required placeholder="Patient location">
-                </div>
+                <div class="input-field col s12">
+                <input id="address" type="text" class="validate" name="address">
+                <label for="address">Patient Location</label>
               </div>
               <input type="hidden" id="latitude" name ="latitude"/> 
-    <input type="hidden" id="longitude" name="longitude"/>
+              <input type="hidden" id="longitude" name="longitude"/>
               <div id="map-canvas"></div>
-              <div class="col-sm-12">
-                <div class="form-group">
-                  <input type="submit" class="btn btn-primary btn-embossed" value="Save">
-                </div>
+              <div class="col s12">
+              <a class="waves-effect waves-light btn" HREF="javascript:document.submitForm.submit()">Submit</a> 
               </div>
             </div>
           </form>
