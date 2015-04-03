@@ -63,20 +63,27 @@ def login(request):
 # 	return render_to_response("index.html",{'logout':1},context_instance=RequestContext(request))
 
 def dashboard(request):
-	''' View for the PathLabs to see the data uploaded by them and also an option to update the data they have provided to the government'''
+	''' 
+	View for the PathLabs to see the data uploaded by them and also an option to update the data they 
+	have provided to the government
+	'''
 	c = {}
 	c.update(csrf(request))
 	all_patients=PatientData.objects.filter(labId='1')
 	return render_to_response('mdashboard.html',{'all_patients':all_patients},context_instance=RequestContext(request))
 
 def upload(request):
-	'''For uploading the patient data '''
+	'''
+	For uploading the patient data 
+	'''
 	c = {}
 	c.update(csrf(request))
 	return render_to_response('upload.html', context_instance=RequestContext(request))
 
 def savelocation(request):
-	'''View for saving the location of the Patient'''
+	'''
+	View for saving the location of the Patient
+	'''
 	c = {}
 	c.update(csrf(request))
 	if request.POST:

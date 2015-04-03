@@ -21,29 +21,12 @@
         outline: none;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
       }
-
-      #pac-input {
-        background-color: #fff;
-        padding: 0 11px 0 13px;
-        width: 400px;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        text-overflow: ellipsis;
+      #map-canvas {
+        width: 100%;
+        height: 400px;
+        transition:all .3s ease;
       }
-
-      #pac-input:focus {
-        border-color: #4d90fe;
-        margin-left: -1px;
-        padding-left: 14px;  /* Regular padding-left + 1. */
-        width: 401px;
-      }
-
-      .pac-container {
-        font-family: Roboto;
-      }
-
-      }
+    }
 
     </style>
     <script>
@@ -56,10 +39,10 @@ function initialize() {
     mapOptions);
 
   var input = /** @type {HTMLInputElement} */(
-      document.getElementById('pac-input'));
+      document.getElementById('address'));
   var  image = 'http://www.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png';
   var types = document.getElementById('type-selector');
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+  // map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 
   var autocomplete = new google.maps.places.Autocomplete(input);
@@ -154,10 +137,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
   <main>
       <div class="row center" id="row1">
         <div class="col s12 m12 l12">
-              <a class="active waves-effect waves-light btn">Home</a>
-              <a class="waves-effect waves-light btn">MY Uploaded Data</a>
-              <a class="waves-effect waves-light btn">Upload New Data</a>
-              <a class="waves-effect waves-light btn">Show stats on map</a>
+              <a class="active waves-effect waves-light btn" href="/">Home</a>
+              <a class="waves-effect waves-light btn" >MY Uploaded Data</a>
+              <a class="waves-effect waves-light btn" href="/dashboard">Upload New Data</a>
+              <a class="waves-effect waves-light btn" href="/showdata">Show stats on map</a>
               <a class="waves-effect waves-light btn">Alert the Schools</a>
               <a class="waves-effect waves-light btn">About Us</a>
         </div>
@@ -200,73 +183,33 @@ google.maps.event.addDomListener(window, 'load', initialize);
             </div>
         </div>
       </div>
-    <div class="container">
+      <div class="container">
+        
       <div class="row one">
         <div class="col s12">
           <h2>Upload Patient Data</h2>
           <form action="/savelocation"  method="POST" name="submitForm">
              {% csrf_token %}
             <div class="row">
-              <div class="input-field col s12">
+              <div class="input-field col s4">
                 <input id="name" type="text" class="validate" name="name">
                 <label for="name">Patient Name</label>
               </div>
-                <div class="input-field col s12">
+                <div class="input-field col s4">
                 <input id="address" type="text" class="validate" name="address">
-                <label for="address">Patient Location</label>
+                <label for="address">Enter a location</label>
               </div>
-              <input type="hidden" id="latitude" name ="latitude"/> 
-              <input type="hidden" id="longitude" name="longitude"/>
-              <div id="map-canvas"></div>
-              <div class="col s12">
+              <div class="col s4">
               <a class="waves-effect waves-light btn" HREF="javascript:document.submitForm.submit()">Submit</a> 
               </div>
+              <div id="map-canvas"></div>
+              <input type="hidden" id="latitude" name ="latitude"/> 
+              <input type="hidden" id="longitude" name="longitude"/>
             </div>
           </form>
         </div>
       </div>
-      <div class="row two">
-        <div class="col-sm-12">
-          <h2>Lab Data</h2>
-          <div class="table-responsive">
-            <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>S.No.</th>
-                  <th>Patient Id</th>
-                  <th>Location</th>
-                  <th>Added On</th>
-                  <th>Options</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for each in all_patients %}
-                <tr>
-                  <td>{{forloop.counter}}</td>
-                  <td>Ab5542</td>
-                  <td>{{each.address}}</td>
-                  <td>{{each.visitDate|date:"d M Y"}}</td>
-                  <td><a href="javascript:" class="btn btn-inverse" title="Edit"><span class="fui-new"></span></a> <a href="javascript:" class="btn btn-inverse" title="Delete"><span class="fui-trash"></span></a></td>
-                </tr>
-                {% endfor %}
-                
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
-      <div class="row three">
-        <div class="col-sm-12">
-          <h2>Disease distribution on map</h2>
-          <div id="map-canvas"></div>
-        </div>
-      </div>
-      <div class="row four">
-        <div class="col-sm-12">
-          <h2>Edit lab details</h2>
-        </div>
-      </div>
-    </div>
   </main>
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/js/materialize.min.js"></script>
