@@ -3,15 +3,20 @@
   <head>
     <meta charset="utf-8">
     <title>Heatmaps</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.95.3/css/materialize.min.css">
+      <link rel="stylesheet" href="/static/css/sample.css">
+      <link href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" rel="stylesheet" type="text/css">
     <style>
       html, body, #map-canvas {
-        height: 100%;
+        height: 96.65%;
         margin: 0px;
-        padding: 0px
+        padding: 0px;
       }
       #panel {
         position: absolute;
         top: 5px;
+        margin-top: 57px;
         left: 50%;
         margin-left: -180px;
         z-index: 5;
@@ -92,6 +97,37 @@ google.maps.event.addDomListener(window, 'load', initialize);
   </head>
 
   <body>
+    <div class="navbar-fixed">
+    <nav >
+      <div class="nav-wrapper">
+        <a href="#!" class="center brand-logo hide-on-med-and-down">Public Health Surveillance System</a>
+        <a href="#!" class="center brand-logo hide-on-large-only "><i class="right mdi-file-cloud-queue"></i> PHSS</a>
+        <a id="menuicon" data-activates="mobile-demo" class="button-collapse top-nav full"><i class="mdi-navigation-menu"></i></a>
+        <ul class="menu2 right hide-on-med-and-down">
+        {% if user.is_authenticated %}
+          <li><a><img src="/static/img/deshraj.jpg" id="deshraj" alt="deshraj" class="circle resposive-img">Hi, Deshraj</a></li>
+        {% else %}
+          <li><a class ="modal-trigger"style="font-size:17px;" href="#login">Login</a></li>
+          <li><a class ="modal-trigger"style="font-size:17px;" href="#register">Register</a></li>
+        {% endif %}
+          <li class="divider"></li>
+        </ul>
+      </div>
+        <ul class="side-nav show-on-med-and-down" id="mobile-demo">
+          <li><a><img src="/static/img/deshraj.jpg" id="deshraj" alt="deshraj" class="circle resposive-img">   Hi, Deshraj</a></li>
+          <div class="divider"></div>
+          <li><a>Classification</a></li>
+          <li><a>Image Stitch</a></li>
+          <li><a>Train Category</a></li>
+          <li><a>Decaf Server</a></li>
+          <div class="divider"></div>
+          <li><a>Logout</a></li>
+          <div class="divider"></div>
+        </ul>
+  </nav>
+  </div>
+  <!-- <div class="row center"> -->
+  <!-- <div class="col s12"> -->
     <div id="panel">
       <button onclick="toggleHeatmap()">Toggle Heatmap</button>
       <button onclick="changeGradient()">Change gradient</button>
@@ -99,5 +135,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
       <button onclick="changeOpacity()">Change opacity</button>
     </div>
     <div id="map-canvas"></div>
+  <!-- </div> -->
+  <!-- </div> -->
   </body>
 </html>

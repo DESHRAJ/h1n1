@@ -16,12 +16,16 @@ from h1n1.models import *
 import random,string,ast
 
 def home(request):
-	''' Home page view of the django application'''
+	""" 
+	Home page view of the django application
+	"""
 	return render_to_response('index.html')
 
 
 def signup(request):
-	"""signup for the user """
+	"""
+	signup for the user 
+	"""
 	if not request.user.is_active:
 		if request.POST:
 			print "entered the if sectison"
@@ -43,7 +47,9 @@ def signup(request):
 		return HttpResponseRedirect("/")	
 
 def login(request):
-	""" Login view """
+	""" 
+	Login view
+	"""
 	if not request.user.is_authenticated():
 		if request.POST:
 			username = request.POST['username']
@@ -63,27 +69,27 @@ def login(request):
 # 	return render_to_response("index.html",{'logout':1},context_instance=RequestContext(request))
 
 def dashboard(request):
-	''' 
+	""" 
 	View for the PathLabs to see the data uploaded by them and also an option to update the data they 
 	have provided to the government
-	'''
+	"""
 	c = {}
 	c.update(csrf(request))
 	all_patients=PatientData.objects.filter(labId='1')
 	return render_to_response('mdashboard.html',{'all_patients':all_patients},context_instance=RequestContext(request))
 
 def upload(request):
-	'''
+	"""
 	For uploading the patient data 
-	'''
+	"""
 	c = {}
 	c.update(csrf(request))
 	return render_to_response('upload.html', context_instance=RequestContext(request))
 
 def savelocation(request):
-	'''
+	"""
 	View for saving the location of the Patient
-	'''
+	"""
 	c = {}
 	c.update(csrf(request))
 	if request.POST:
@@ -102,5 +108,8 @@ def savelocation(request):
 	return render_to_response('upload.html', context_instance=RequestContext(request))
 
 def showdata(request):
+	""" 
+	Loads the data on Maps 
+	"""
 	patients=PatientData.objects.all()
 	return render_to_response('distribution.html',{'patients':patients},context_instance=RequestContext(request))
