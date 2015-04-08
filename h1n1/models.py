@@ -19,3 +19,16 @@ class PatientData(models.Model):
 
     def __unicode__(self):
         return self.address
+
+class SchoolDb(models.Model):
+    school_id=models.CharField(max_length=10)
+    name=models.CharField(max_length=500)
+    email_id=models.CharField(max_length=200)
+    address=models.CharField(max_length=1000)
+    location=gis_models.PointField(u"longitude/latitude",geography=True,blank=True,null=True)
+    gis=gis_models.GeoManager()
+    objects=models.Manager()
+
+    def __unicode__(self):
+        return self.address
+

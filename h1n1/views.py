@@ -12,6 +12,7 @@ from django.template.loader import render_to_string, get_template
 from django.core.mail import EmailMultiAlternatives
 from datetime import datetime,timedelta
 from h1n1.models import *
+from django.contrib.gis import measure
 
 import random,string,ast
 
@@ -86,6 +87,22 @@ def upload(request):
 	c.update(csrf(request))
 	return render_to_response('upload.html', context_instance=RequestContext(request))
 
+def get_near_by_schools(latitude,longitude,threshold):
+	current_point=geos.fromstr("POINT(%s %s)" % (longitude, latitude))
+	distance_from_point = {'km':threshold}
+	school  =SchoolDb.gis.filter(location__distance_lte=(current_point,measure.D(**distance_from_point)))
+	school = school.distance(current_point).order_by('distance')
+	return school.distance(current_point)
+	
+
+def get_patients_near_by(latitude,longitude):
+	current_point=geos.fromstr("POINT(%s %s)" % (longitude, latitude))
+	distance_from_point = {'km':1}
+	patient  =PatientData.gis.filter(location__distance_lte=(current_point,measure.D(**distance_from_point)))
+	patient = patient.distance(current_point).order_by('distance')
+	return patient.distance(current_point)
+
+
 def savelocation(request):
 	"""
 	View for saving the location of the Patient
@@ -98,11 +115,28 @@ def savelocation(request):
 		address=request.POST['address']
 		latitude=request.POST['latitude']
 		longitude=request.POST['longitude']
-		print name,address,latitude,longitude
+		print 'saving ', name,address,latitude,longitude
 		point = "POINT(%s %s)" % (longitude, latitude)
 		location = geos.fromstr(point)
 		newpatient=PatientData(address=address,name=name,location=location,labId='1')
 		newpatient.save()
+		#before saving this point, check the number of patients within 1 km, this will be its vicinity
+
+		#deshraj : we need discussion whether it should be 1 or more here TO DISCUSS
+		patients_nearby=get_patients_near_by(latitude,longitude)
+		#print 'nearby = ', len(patients_nearby)
+		#setting the threshold to 3 for time being,
+
+		number_of_patients=len(patients_nearby)
+		threshold=-1
+
+		if number_of_patients>threshold:
+			#time to send the mail to all schools within 5 km range
+			schools_nearby=get_near_by_schools(latitude,longitude,5)
+			print 'schools near by ', len(schools_nearby)
+
+
+
 		print 'patient details saved'
 		return HttpResponseRedirect('/dashboard')
 	return render_to_response('upload.html', context_instance=RequestContext(request))
