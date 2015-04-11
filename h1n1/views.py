@@ -18,14 +18,18 @@ import random,string,ast
 
 def home(request):
 	""" 
+	
 	Home page view of the django application
+	
 	"""
 	return render_to_response('index.html')
 
 
 def signup(request):
 	"""
+	
 	signup for the user 
+	
 	"""
 	if not request.user.is_active:
 		if request.POST:
@@ -49,7 +53,9 @@ def signup(request):
 
 def login(request):
 	""" 
+	
 	Login view
+	
 	"""
 	if not request.user.is_authenticated():
 		if request.POST:
@@ -71,8 +77,10 @@ def login(request):
 
 def dashboard(request):
 	""" 
+	
 	View for the PathLabs to see the data uploaded by them and also an option to update the data they 
 	have provided to the government
+	
 	"""
 	c = {}
 	c.update(csrf(request))
@@ -81,7 +89,9 @@ def dashboard(request):
 
 def upload(request):
 	"""
+	
 	For uploading the patient data 
+	
 	"""
 	c = {}
 	c.update(csrf(request))
@@ -105,7 +115,9 @@ def get_patients_near_by(latitude,longitude):
 
 def savelocation(request):
 	"""
+	
 	View for saving the location of the Patient
+	
 	"""
 	c = {}
 	c.update(csrf(request))
@@ -133,17 +145,17 @@ def savelocation(request):
 		if number_of_patients>threshold:
 			#time to send the mail to all schools within 5 km range
 			schools_nearby=get_near_by_schools(latitude,longitude,5)
-			print 'schools near by ', len(schools_nearby)
-
-
-
+			# print 'schools near by ', len(schools_nearby)
 		print 'patient details saved'
-		return HttpResponseRedirect('/dashboard')
+		# return HttpResponseRedirect('/dashboard')
+		return render_to_response('mdashboard.html',{'uploaded':1},context_instance=RequestContext(request))
 	return render_to_response('upload.html', context_instance=RequestContext(request))
 
 def showdata(request):
 	""" 
+	
 	Loads the data on Maps 
+	
 	"""
 	patients=PatientData.objects.all()
 	return render_to_response('distribution.html',{'patients':patients},context_instance=RequestContext(request))
