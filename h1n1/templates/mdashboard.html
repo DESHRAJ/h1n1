@@ -8,9 +8,7 @@
 	<link rel="stylesheet" href="/static/css/sample.css">
 	<link href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" rel="stylesheet" type="text/css">
 		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
-
 				<style>
-			
 			.controls {
 				margin-top: 16px;
 				border: 1px solid transparent;
@@ -139,7 +137,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			<div class="row center" id="row1">
 				<div class="col s12 m12 l12">
 							<a class="active waves-effect waves-light btn" href="/">Home</a>
-							<a class="waves-effect waves-light btn" >MY Uploaded Data</a>
+							<a class="waves-effect waves-light btn" >My Uploaded Data</a>
 							<a class="waves-effect waves-light btn" href="/dashboard">Upload New Data</a>
 							<a class="waves-effect waves-light btn" href="/showdata">Show stats on map</a>
 							<a class="waves-effect waves-light btn">Alert the Schools</a>
@@ -151,35 +149,49 @@ google.maps.event.addDomListener(window, 'load', initialize);
 					<h4>Get Started</h4>
 					<div class="divider"></div>
 					<div class="container">
-					<form class="col s12">
+					<form id="loginForm"class="col s12" method="post" action="/login">
+					{% csrf_token %}
 							<div class="input-field col s12">
-								<input id="email" type="email" class="validate">
-								<label for="email">Email</label>
+								<input id="labName" name="username" type="text" class="validate">
+								<label for="labName">Universal PathLab-Id</label>
 							</div>
 							<div class="input-field col s12">
-								<input id="password" type="password" class="validate">
+								<input id="password" name="password" type="password" class="validate">
 								<label for="password">Password</label>
 							</div>
-							<a class="waves-effect waves-light btn">Login</a>              
+							<a class="waves-effect waves-light btn" onclick="loginForm.submit()">Login</a>              
 					</form>
 						</div>
 				</div>
 			</div>
 			<div id="register" class="modal modal-fixed-footer">
 				<div class="modal-content">
-					<h4>Get Started</h4>
+					<h4>Register to Get Started</h4>
 					<div class="divider"></div>
 					<div class="container">
-					<form class="col s12">
-							<div class="input-field col s12">
-								<input id="email" type="email" class="validate">
-								<label for="email">Email</label>
+					<form id="registerForm" class="col s12" method="post" action="/register">
+					{% csrf_token %}
+							<div class="input-field col s6">
+								<i class="small mdi-action-account-circle prefix"></i>
+								<input id="labId" name="username" type="text" class="validate">
+								<label for="labId">Universal PathLab-Id</label>
 							</div>
-							<div class="input-field col s12">
-								<input id="password" type="password" class="validate">
+							<div class="input-field col s6">
+								<i class="small mdi-editor-border-color prefix"></i>
+								<input id="labName" name="email" type="text" class="validate">
+								<label for="labName">PathLab Name</label>
+							</div>
+							<div class="input-field col s6">
+								<i class="small mdi-hardware-keyboard prefix"></i>
+								<input id="password" name="password" type="password" class="validate">
 								<label for="password">Password</label>
 							</div>
-							<a class="waves-effect waves-light btn">Register</a>              
+							<div class="input-field col s6">
+								<i class="small mdi-hardware-keyboard-hide prefix"></i>
+								<input  name="repeatpassword"id="repeatpassword" type="password" class="validate">
+								<label for="rptpassword">Repeat Password</label>
+							</div>
+							<a class="waves-effect waves-light btn" onclick="registerForm.submit()"><i class="left mdi-content-send"></i>Register</a>
 					</form>
 						</div>
 				</div>
@@ -198,7 +210,6 @@ google.maps.event.addDomListener(window, 'load', initialize);
 							</div>
 								<div class="input-field col s4">
 								<input id="address" type="text" class="validate" name="address">
-								<!-- <label for="address">Enter a location</label> -->
 							</div>
 							<div class="col s4">
 							<a class="waves-effect waves-light btn" HREF="javascript:document.submitForm.submit()">Submit</a> 

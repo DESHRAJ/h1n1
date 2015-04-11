@@ -37,12 +37,12 @@ def signup(request):
 			username = request.POST['username']
 			email = request.POST['email']
 			password = request.POST['password']
-			firstname = request.POST['firstname']
-			lastname = request.POST['lastname']
+			# firstname = request.POST['firstname']
+			# lastname = request.POST['lastname']
 			try:
-				user = User.objects.create_user(username=username,email=email,password=password,first_name=firstname,last_name=lastname)
+				user = User.objects.create_user(username=username,email=email,password=password)
 				user.save()
-				return HttpResponseRedirect("/profile")
+				return HttpResponseRedirect("/dashboard")
 			except:
 				return HttpResponse("This Id already exists")
 		else:
@@ -66,7 +66,7 @@ def login(request):
 				auth.login(request,user)
 				return HttpResponseRedirect("/dashboard")
 			else:
-				return render_to_response('login.html',{'incorrect':1},context_instance=RequestContext(request))				
+				return render_to_response('mdashboard.html',{'incorrect':1},context_instance=RequestContext(request))				
 		return render_to_response('login.html',context_instance=RequestContext(request))
 	else:
 		return HttpResponseRedirect("/dashboard")
