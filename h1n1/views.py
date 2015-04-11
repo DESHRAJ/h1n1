@@ -22,7 +22,7 @@ def home(request):
 	Home page view of the django application
 	
 	"""
-	return render_to_response('index.html')
+	return render_to_response('index.html',context_instance=RequestContext(request))
 
 
 def signup(request):

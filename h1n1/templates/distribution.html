@@ -124,18 +124,85 @@ google.maps.event.addDomListener(window, 'load', initialize);
           <li><a>Logout</a></li>
           <div class="divider"></div>
         </ul>
-  </nav>
+  </nav>    
   </div>
-  <!-- <div class="row center"> -->
-  <!-- <div class="col s12"> -->
-    <div id="panel">
-      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
+  <div id="login" class="modal modal-fixed-footer">
+        <div class="modal-content">
+          <h4>Get Started</h4>
+          <div class="divider"></div>
+          <div class="container">
+          <form id="loginForm"class="col s12" method="post" action="/login">
+          {% csrf_token %}
+              <div class="input-field col s12">
+                <input id="labName" name="username" type="text" class="validate">
+                <label for="labName">Universal PathLab-Id</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="password" name="password" type="password" class="validate">
+                <label for="password">Password</label>
+              </div>
+              <a class="waves-effect waves-light btn" onclick="loginForm.submit()">Login</a>              
+          </form>
+            </div>
+        </div>
+      </div>
+      <div id="register" class="modal modal-fixed-footer">
+        <div class="modal-content">
+          <h4>Register to Get Started</h4>
+          <div class="divider"></div>
+          <div class="container">
+          <form id="registerForm" class="col s12" method="post" action="/register">
+          {% csrf_token %}
+              <div class="input-field col s6">
+                <i class="small mdi-action-account-circle prefix"></i>
+                <input id="labId" name="username" type="text" class="validate">
+                <label for="labId">Universal PathLab-Id</label>
+              </div>
+              <div class="input-field col s6">
+                <i class="small mdi-editor-border-color prefix"></i>
+                <input id="labName" name="email" type="text" class="validate">
+                <label for="labName">PathLab Name</label>
+              </div>
+              <div class="input-field col s6">
+                <i class="small mdi-hardware-keyboard prefix"></i>
+                <input id="password" name="password" type="password" class="validate">
+                <label for="password">Password</label>
+              </div>
+              <div class="input-field col s6">
+                <i class="small mdi-hardware-keyboard-hide prefix"></i>
+                <input  name="repeatpassword"id="repeatpassword" type="password" class="validate">
+                <label for="rptpassword">Repeat Password</label>
+              </div>
+              <a class="waves-effect waves-light btn" onclick="registerForm.submit()"><i class="left mdi-content-send"></i>Register</a>
+          </form>
+            </div>
+        </div>
+      </div>
+  <div class="row center hide-on-med-and-down z-index-1" id="row1" style="margin:0; padding-bottom:0; background-color:#424242;">
+    <div class="col s12 m12 l12" >
+      <!-- <button onclick="toggleHeatmap()">Toggle Heatmap</button>
       <button onclick="changeGradient()">Change gradient</button>
       <button onclick="changeRadius()">Change radius</button>
-      <button onclick="changeOpacity()">Change opacity</button>
-    </div>
-    <div id="map-canvas"></div>
-  <!-- </div> -->
-  <!-- </div> -->
+      <button onclick="changeOpacity()">Change opacity</button> -->
+    <a class="active waves-effect waves-light btn" href="/">Home</a>
+    <a class="waves-effect waves-light btn" >My Uploaded Data</a>
+    <a class="waves-effect waves-light btn" href="/dashboard">Upload New Data</a>
+    <a class="waves-effect waves-light btn" href="/showdata">Show stats on map</a>
+    <a class="waves-effect waves-light btn">Alert the Schools</a>
+    <a class="waves-effect waves-light btn">About Us</a>
+  </div>
+  </div>
+    <div id="map-canvas" style="margin-top:0;"></div>
   </body>
 </html>
+<script type="text/javascript">
+  $(document).ready(function(){
+      $('.modal-trigger').leanModal({
+      dismissible: true,
+      opacity: .5,
+      in_duration: 300,
+      out_duration: 200,
+    }
+  ); 
+  });
+  </script>

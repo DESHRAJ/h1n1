@@ -60,35 +60,49 @@
           <h4>Get Started</h4>
           <div class="divider"></div>
           <div class="container">
-          <form class="col s12">
+          <form id="loginForm"class="col s12" method="post" action="/login">
+          {% csrf_token %}
               <div class="input-field col s12">
-                <input id="email" type="email" class="validate">
-                <label for="email">Email</label>
+                <input id="labName" name="username" type="text" class="validate" required>
+                <label for="labName">Universal PathLab-Id</label>
               </div>
               <div class="input-field col s12">
-                <input id="password" type="password" class="validate">
+                <input id="password" name="password" type="password" class="validate" required>
                 <label for="password">Password</label>
               </div>
-              <a class="waves-effect waves-light btn">Login</a>              
+              <a class="waves-effect waves-light btn" onclick="loginForm.submit()">Login</a>              
           </form>
             </div>
         </div>
       </div>
       <div id="register" class="modal modal-fixed-footer">
         <div class="modal-content">
-          <h4>Get Started</h4>
+          <h4>Register to Get Started</h4>
           <div class="divider"></div>
           <div class="container">
-          <form class="col s12">
-              <div class="input-field col s12">
-                <input id="email" type="email" class="validate">
-                <label for="email">Email</label>
+          <form id="registerForm" class="col s12" method="post" action="/register">
+          {% csrf_token %}
+              <div class="input-field col s6">
+                <i class="small mdi-action-account-circle prefix"></i>
+                <input id="labId" name="username" type="text" class="validate" required>
+                <label for="labId">Universal PathLab-Id</label>
               </div>
-              <div class="input-field col s12">
-                <input id="password" type="password" class="validate">
+              <div class="input-field col s6">
+                <i class="small mdi-editor-border-color prefix"></i>
+                <input id="labName" name="email" type="text" class="validate" required>
+                <label for="labName">PathLab Name</label>
+              </div>
+              <div class="input-field col s6">
+                <i class="small mdi-hardware-keyboard prefix"></i>
+                <input id="password" name="password" type="password" class="validate" required>
                 <label for="password">Password</label>
               </div>
-              <a class="waves-effect waves-light btn">Register</a>              
+              <div class="input-field col s6">
+                <i class="small mdi-hardware-keyboard-hide prefix"></i>
+                <input  name="repeatpassword"id="repeatpassword" type="password" class="validate" required>
+                <label for="rptpassword">Repeat Password</label>
+              </div>
+              <a class="waves-effect waves-light btn" onclick="registerForm.submit()"><i class="left mdi-content-send"></i>Register</a>
           </form>
             </div>
         </div>
